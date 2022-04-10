@@ -9,3 +9,11 @@ type SignalMessage struct {
 	ObjectType string
 	Data       interface{}
 }
+
+type SignalEvent struct {
+	SourceName string
+	Source     string
+	ReceivedAt time.Time
+	ObjectType string
+	Data       interface{}
+}

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/config"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 )
 
@@ -12,7 +13,7 @@ type MessageHub interface {
 	Receive(receiver func(message *models.SignalMessage), target string) error
 }
 
-func NewMessageHub() MessageHub {
+func NewMessageHub(appConfig *config.AppConfig) MessageHub {
 	hub := new(SqsMessageHub)
 
 	session := session.Must(session.NewSessionWithOptions(session.Options{

@@ -2,6 +2,7 @@ package messaging
 
 import (
 	"encoding/json"
+	"github.com/Shopify/sarama"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/sqs"
 )
@@ -26,5 +27,11 @@ func MapToJson(toMap interface{}) string {
 	}
 
 	return string(result)
+}
 
+func MapToKafkaMessage(toMap interface{}, topicName string) *sarama.ProducerMessage {
+	return &sarama.ProducerMessage{
+		Topic: topicName,
+		Value: sarama.StringEncoder(MapToJson(toMap)),
+	}
 }
