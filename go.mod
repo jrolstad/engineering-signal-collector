@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/Shopify/sarama v1.32.0 // indirect
+	github.com/aws/aws-lambda-go v1.29.0 // indirect
 	github.com/aws/aws-sdk-go v1.43.36 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/eapache/go-resiliency v1.2.0 // indirect
