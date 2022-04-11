@@ -5,12 +5,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/config"
-	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 )
 
 type MessageHub interface {
-	Send(toSend *models.SignalMessage, target string) error
-	Receive(receiver func(message *models.SignalMessage), target string) error
+	Send(toSend *SignalMessage, target string) error
+	Receive(receiver func(message *SignalMessage), target string) error
 }
 
 func NewMessageHub(appConfig *config.AppConfig) MessageHub {
@@ -28,7 +27,7 @@ type SqsMessageHub struct {
 	sqs *sqs.SQS
 }
 
-func (hub *SqsMessageHub) Send(toSend *models.SignalMessage, target string) error {
+func (hub *SqsMessageHub) Send(toSend *SignalMessage, target string) error {
 	message, mapError := MapToSqsSendMessage(hub.sqs, toSend, target)
 	if mapError != nil {
 		return mapError
@@ -42,6 +41,6 @@ func (hub *SqsMessageHub) Send(toSend *models.SignalMessage, target string) erro
 	return nil
 }
 
-func (hub *SqsMessageHub) Receive(receiver func(message *models.SignalMessage), target string) error {
+func (hub *SqsMessageHub) Receive(receiver func(message *SignalMessage), target string) error {
 	return errors.New("not yet implemented")
 }

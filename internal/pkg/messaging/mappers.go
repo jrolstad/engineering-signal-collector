@@ -35,3 +35,17 @@ func MapToKafkaMessage(toMap interface{}, topicName string) *sarama.ProducerMess
 		Value: sarama.StringEncoder(MapToJson(toMap)),
 	}
 }
+
+func MapToSignalEvent(toMap *SignalMessage) *SignalEvent {
+	if toMap == nil {
+		return nil
+	}
+
+	return &SignalEvent{
+		SourceName: toMap.SourceName,
+		Source:     toMap.Source,
+		ReceivedAt: toMap.ReceivedAt,
+		ObjectType: toMap.ObjectType,
+		Data:       toMap.Data,
+	}
+}
