@@ -8,7 +8,7 @@ RUN go mod download
 
 # build
 ADD . .
-RUN go build -o /main ./cmd/health_api
+RUN go build -o /main ./cmd/agents/health_api
 
 # copy artifacts to a clean image
 FROM public.ecr.aws/lambda/go:1

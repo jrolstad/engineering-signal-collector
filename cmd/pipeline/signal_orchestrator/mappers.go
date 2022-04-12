@@ -1,4 +1,4 @@
-package signal_orchestrator_lambda
+package main
 
 import (
 	"encoding/json"
