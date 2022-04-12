@@ -74,7 +74,6 @@ resource "aws_iam_role" "lambda_exec" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
-  name       = local.service_name
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
@@ -110,7 +109,6 @@ resource "aws_apigatewayv2_stage" "lambda" {
 }
 
 resource "aws_apigatewayv2_integration" "health" {
-  name = "${local.service_name}_health"
   api_id = aws_apigatewayv2_api.lambda.id
 
   integration_uri    = aws_lambda_function.health.invoke_arn
@@ -133,7 +131,6 @@ resource "aws_cloudwatch_log_group" "api_gw" {
 }
 
 resource "aws_lambda_permission" "api_gw" {
-  name = "${local.service_name}_health"
 
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
