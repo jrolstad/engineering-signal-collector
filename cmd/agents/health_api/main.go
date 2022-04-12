@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	runtime "github.com/aws/aws-lambda-go/lambda"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/orchestration"
 )
 
 func init() {
@@ -16,6 +18,7 @@ func main() {
 }
 
 func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-
-	return events.APIGatewayProxyResponse{StatusCode: 200}, nil
+	data := orchestration.GetApplicationHealth()
+	response := core.MapToJson(data)
+	return events.APIGatewayProxyResponse{StatusCode: 200, Body: response}, nil
 }

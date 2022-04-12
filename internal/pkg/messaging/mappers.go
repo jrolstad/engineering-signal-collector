@@ -1,10 +1,10 @@
 package messaging
 
 import (
-	"encoding/json"
 	"github.com/Shopify/sarama"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
 )
 
 func MapToSqsSendMessage(sqsInstance *sqs.SQS, toMap interface{}, queueName string) (*sqs.SendMessageInput, error) {
@@ -14,25 +14,16 @@ func MapToSqsSendMessage(sqsInstance *sqs.SQS, toMap interface{}, queueName stri
 	}
 
 	input := new(sqs.SendMessageInput)
-	input.MessageBody = aws.String(MapToJson(toMap))
+	input.MessageBody = aws.String(core.MapToJson(toMap))
 	input.QueueUrl = urlResult.QueueUrl
 
 	return input, nil
 }
 
-func MapToJson(toMap interface{}) string {
-	result, err := json.Marshal(toMap)
-	if err != nil {
-		return "{}"
-	}
-
-	return string(result)
-}
-
 func MapToKafkaMessage(toMap interface{}, topicName string) *sarama.ProducerMessage {
 	return &sarama.ProducerMessage{
 		Topic: topicName,
-		Value: sarama.StringEncoder(MapToJson(toMap)),
+		Value: sarama.StringEncoder(core.MapToJson(toMap)),
 	}
 }
 
