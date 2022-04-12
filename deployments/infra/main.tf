@@ -45,7 +45,7 @@ resource "aws_lambda_function" "health" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "132367819851.dkr.ecr.eu-west-1.amazonaws.com/complete-cow:1.0" #"${aws_ecr_repository.registry.repository_url}/health-api:latest"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:health_api-1"
   package_type = "Image"
   
 }
