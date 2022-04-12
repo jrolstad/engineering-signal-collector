@@ -26,5 +26,5 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 	eventType := request.Headers["X-GitHub-Event"]
 	ProcessSignal(eventType, request.Body, _messageHub)
 
-	return events.APIGatewayProxyResponse{StatusCode: 200, Body: request.Body}, nil
+	return events.APIGatewayProxyResponse{StatusCode: 200}, nil
 }

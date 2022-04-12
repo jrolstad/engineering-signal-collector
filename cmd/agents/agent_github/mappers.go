@@ -11,6 +11,9 @@ const (
 )
 
 func MapGithubEventToType(event string) string {
+	if event == "" {
+		return "unknown"
+	}
 	switch strings.ToLower(githubeventPullRequest) {
 	case models.ObjectType_PeerReview:
 		return models.ObjectType_PeerReview
