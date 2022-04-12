@@ -1,0 +1,37 @@
+name: application-continuous-integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches: '**'
+  pull_request:
+    branches: '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+        shell: bash
+    environment: production
+    env:
+      working-directory: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Project
+        run: go build ./...
+
+      - name: Run Unit Tests
+        run: go test ./...
+
+      - name: Build Docker Images
+        env:
+          IMAGE_TAG: ${{ github.run_number }}
+        run: |
+          docker build -f deployments/agents/health_api.dockerfile -t health_api:$IMAGE_TAG .
+          docker build -f deployments/agents/collection_agent_github.dockerfile -t github_agent:$IMAGE_TAG .
+          docker build -f deployments/pipeline/signal_orchestrator.dockerfile -t signal_orchestrator:$IMAGE_TAG .
