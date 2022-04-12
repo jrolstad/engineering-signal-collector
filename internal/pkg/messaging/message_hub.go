@@ -2,9 +2,9 @@ package messaging
 
 import (
 	"errors"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+	"fmt"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/config"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
 )
 
 type MessageHub interface {
@@ -13,34 +13,26 @@ type MessageHub interface {
 }
 
 func NewMessageHub(appConfig *config.AppConfig) MessageHub {
-	hub := new(SqsMessageHub)
+	return NewLoggingMessageHub(appConfig)
+}
 
-	session := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
-	hub.sqs = sqs.New(session)
+func NewLoggingMessageHub(appConfig *config.AppConfig) MessageHub {
+	hub := new(LoggingMessageHub)
 
 	return hub
 }
 
-type SqsMessageHub struct {
-	sqs *sqs.SQS
+type LoggingMessageHub struct {
 }
 
-func (hub *SqsMessageHub) Send(toSend *SignalMessage, target string) error {
-	message, mapError := MapToSqsSendMessage(hub.sqs, toSend, target)
-	if mapError != nil {
-		return mapError
-	}
+func (hub *LoggingMessageHub) Send(toSend *SignalMessage, target string) error {
+	data := core.MapToJson(toSend)
 
-	_, sendError := hub.sqs.SendMessage(message)
-	if sendError != nil {
-		return sendError
-	}
+	fmt.Println("target:" + target + "|" + data)
 
 	return nil
 }
 
-func (hub *SqsMessageHub) Receive(receiver func(message *SignalMessage), target string) error {
+func (hub *LoggingMessageHub) Receive(receiver func(message *SignalMessage), target string) error {
 	return errors.New("not yet implemented")
 }
