@@ -12,15 +12,15 @@ terraform {
       source  = "hashicorp/archive"
       version = "~> 2.2.0"
     }
-
-    backend "s3" {
-      bucket = "engineeringsignalcollector"
-      key    = "engineeringsignalcollector/terraform.tfstate"
-      region = "us-west-1"
-    }
   }
 
   required_version = "~> 1.0"
+
+  backend "s3" {
+    bucket = "engineeringsignalcollectortfstate"
+    key    = "engineeringsignalcollector/terraform.tfstate"
+    region = "us-west-1"
+  }
 }
 
 provider "aws" {
