@@ -8,7 +8,7 @@ RUN go mod download
 
 # build
 ADD . .
-RUN go build -o /main ./cmd/agents/collection_agent_github
+RUN go build -o /main ./cmd/agents/agent_github
 
 # copy artifacts to a clean image
 FROM public.ecr.aws/lambda/go:1

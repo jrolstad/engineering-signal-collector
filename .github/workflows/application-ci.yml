@@ -41,5 +41,5 @@ jobs:
           IMAGE_TAG: ${{ github.run_number }}
         run: |
           docker build -f build/agents/health_api.dockerfile -t health_api:$IMAGE_TAG .
-          docker build -f build/agents/collection_agent_github.dockerfile -t github_agent:$IMAGE_TAG .
+          docker build -f build/agents/agent_github.dockerfile -t github_agent:$IMAGE_TAG .
           docker build -f build/pipeline/signal_orchestrator.dockerfile -t signal_orchestrator:$IMAGE_TAG .
