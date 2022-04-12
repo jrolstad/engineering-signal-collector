@@ -51,7 +51,7 @@ resource "aws_cloudwatch_log_group" "health" {
 }
 
 resource "aws_iam_role" "lambda_exec" {
-  name = "serverless_lambda"
+  name = local.service_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -68,19 +68,20 @@ resource "aws_iam_role" "lambda_exec" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
+  name       = local.service_name
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 resource "aws_apigatewayv2_api" "lambda" {
-  name          = "serverless_lambda_gw"
+  name          = local.service_name
   protocol_type = "HTTP"
 }
 
 resource "aws_apigatewayv2_stage" "lambda" {
+  name = local.service_name
   api_id = aws_apigatewayv2_api.lambda.id
 
-  name        = "serverless_lambda_stage"
   auto_deploy = true
 
   access_log_settings {
