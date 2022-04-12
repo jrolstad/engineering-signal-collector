@@ -3,7 +3,7 @@ resource "aws_lambda_function" "health" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:health_api-2"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:health_api-3"
   package_type = "Image"
   
 }
@@ -29,7 +29,7 @@ resource "aws_apigatewayv2_route" "health" {
   target    = "integrations/${aws_apigatewayv2_integration.health.id}"
 }
 
-resource "aws_lambda_permission" "api_gw" {
+resource "aws_lambda_permission" "api_gw_health" {
 
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
