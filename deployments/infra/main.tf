@@ -117,7 +117,6 @@ resource "aws_apigatewayv2_integration" "health" {
 }
 
 resource "aws_apigatewayv2_route" "health" {
-  name = "${local.service_name}_health"
   api_id = aws_apigatewayv2_api.lambda.id
 
   route_key = "GET /health"
