@@ -17,6 +17,5 @@ func main() {
 
 func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-	//see https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 	return events.APIGatewayProxyResponse{StatusCode: 200}, nil
 }

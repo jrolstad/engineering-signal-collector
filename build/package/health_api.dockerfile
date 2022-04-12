@@ -1,7 +1,6 @@
-FROM public.ecr.aws/lambda/go:1 as build
+FROM golang:1.18 as build
 
-# install compiler
-RUN yum install -y golang
+WORKDIR bin
 
 # cache dependencies
 ADD go.mod go.sum ./

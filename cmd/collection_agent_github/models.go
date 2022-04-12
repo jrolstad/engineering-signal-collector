@@ -1,4 +1,4 @@
-package collection_agent_github
+package main
 
 const (
 	githubEvent_PullRequest = "pull_request"

@@ -1,4 +1,4 @@
-package collection_agent_github
+package main
 
 import (
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/messaging"
