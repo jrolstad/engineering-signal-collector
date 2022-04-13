@@ -7,6 +7,7 @@ type SignalMessage struct {
 	Source     string
 	ReceivedAt time.Time
 	ObjectType string
+	ObjectId   string
 	Data       interface{}
 }
 
@@ -15,5 +16,6 @@ type SignalEvent struct {
 	Source     string
 	ReceivedAt time.Time
 	ObjectType string
+	ObjectId   string
 	Data       interface{}
 }

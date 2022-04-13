@@ -7,7 +7,7 @@ import (
 
 func ProcessSignal(eventType string, body string, messageHub messaging.MessageHub) error {
 	objectType := MapGithubEventToType(eventType)
-	message := MapPullRequestToSignalMessage(objectType, body)
+	message := MapToSignalMessage(objectType, body)
 
 	sendError := orchestration.SendSignal(messageHub, message)
 

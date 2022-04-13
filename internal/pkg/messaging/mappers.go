@@ -55,5 +55,6 @@ func MapToSignalEvent(toMap *SignalMessage) *SignalEvent {
 		ReceivedAt: toMap.ReceivedAt,
 		ObjectType: toMap.ObjectType,
 		Data:       toMap.Data,
+		ObjectId:   toMap.ObjectId,
 	}
 }

@@ -2,21 +2,15 @@ package messaging
 
 import (
 	"fmt"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/config"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
 )
 
 func NewSnsEventHub(appConfig *config.AppConfig) EventHub {
 	hub := new(SnsEventHub)
 
-	session := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-		Config: aws.Config{
-			Region: aws.String("us-west-1"),
-		},
-	}))
+	session := core.GetAwsSession()
 	hub.sns = sns.New(session)
 
 	return hub
