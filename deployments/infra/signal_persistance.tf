@@ -8,13 +8,13 @@ resource "aws_lambda_function" "signal_persistance" {
   
 }
 
-resource "aws_cloudwatch_log_group" "persistance" {
-  name = "/aws/lambda/${aws_lambda_function.persistance.function_name}"
+resource "aws_cloudwatch_log_group" "signal_persistance" {
+  name = "/aws/lambda/${aws_lambda_function.signal_persistance.function_name}"
 
   retention_in_days = 30
 }
 
-resource "aws_lambda_event_source_mapping" "persistance" {
+resource "aws_lambda_event_source_mapping" "signal_persistance" {
   event_source_arn = aws_sns_topic.signal_received.arn
-  function_name    = aws_lambda_function.persistance.arn
+  function_name    = aws_lambda_function.signal_persistance.arn
 }
