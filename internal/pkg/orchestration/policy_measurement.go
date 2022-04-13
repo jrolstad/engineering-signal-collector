@@ -23,7 +23,12 @@ func MeasurePolicyAdherence(eventHub messaging.EventHub, event *models.SignalEve
 
 		if eventHub != nil {
 			fmt.Printf("Sending result for %v", event.ObjectId)
-			eventHub.Send(policyResultEvent, messaging.Topic_engineeringsignal_policymeasured)
+			sendError := eventHub.Send(policyResultEvent, messaging.Topic_engineeringsignal_policymeasured)
+			fmt.Printf("Result sent for %v", event.ObjectId)
+			if sendError != nil {
+				fmt.Printf("Error Sending: %v", sendError.Error())
+			}
+			return sendError
 		}
 	}
 
