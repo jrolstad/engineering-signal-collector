@@ -2,6 +2,7 @@ package messaging
 
 import (
 	"errors"
+	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
@@ -27,16 +28,19 @@ type SqsMessageHub struct {
 }
 
 func (hub *SqsMessageHub) Send(toSend *SignalMessage, target string) error {
+	fmt.Println("Mapping Message...")
 	message, mapError := MapToSqsSendMessage(hub.sqs, toSend, target)
+	fmt.Println("Message Mapped")
 	if mapError != nil {
 		return mapError
 	}
 
+	fmt.Println("Sending Message")
 	_, sendError := hub.sqs.SendMessage(message)
 	if sendError != nil {
 		return sendError
 	}
-
+	fmt.Println("Message Sent")
 	return nil
 }
 
