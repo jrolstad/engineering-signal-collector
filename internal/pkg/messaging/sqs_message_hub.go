@@ -32,12 +32,14 @@ func (hub *SqsMessageHub) Send(toSend *SignalMessage, target string) error {
 	message, mapError := MapToSqsSendMessage(hub.sqs, toSend, target)
 	fmt.Println("Message Mapped")
 	if mapError != nil {
+		fmt.Println("MappingError: " + mapError.Error())
 		return mapError
 	}
 
 	fmt.Println("Sending Message")
 	_, sendError := hub.sqs.SendMessage(message)
 	if sendError != nil {
+		fmt.Println("SendingError: " + mapError.Error())
 		return sendError
 	}
 	fmt.Println("Message Sent")
