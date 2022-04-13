@@ -4,6 +4,6 @@ resource "aws_s3_bucket" "signal_data" {
 }
 
 resource "aws_s3_bucket_acl" "signal_data" {
-  bucket = aws_s3_bucket.signal_raw.id
+  bucket = aws_s3_bucket.signal_data.id
   acl    = "private"
 }
