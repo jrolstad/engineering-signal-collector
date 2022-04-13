@@ -2,15 +2,20 @@ package messaging
 
 import (
 	"errors"
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/config"
 )
 
-func NewSqsMessageHub() MessageHub {
+func NewSqsMessageHub(appConfig *config.AppConfig) MessageHub {
 	hub := new(SqsMessageHub)
 
 	session := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
+		Config: aws.Config{
+			Region: aws.String("us-west-1"),
+		},
 	}))
 	hub.sqs = sqs.New(session)
 
