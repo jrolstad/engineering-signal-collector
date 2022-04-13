@@ -3,7 +3,7 @@ resource "aws_lambda_function" "agent_github" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:agent_github-5"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:agent_github-6"
   package_type = "Image"
   
 }
