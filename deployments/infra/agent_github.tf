@@ -40,8 +40,3 @@ resource "aws_lambda_permission" "api_gw_agent_github" {
 
   source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
 }
-
-resource "aws_iam_role_policy_attachment" "agent_github" {
-  role       = aws_iam_role.lambda_exec.name
-  policy_arn = aws_sqs_queue_policy.signal_ingestion_send.id
-}

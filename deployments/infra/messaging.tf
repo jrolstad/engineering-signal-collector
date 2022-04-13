@@ -14,7 +14,12 @@ resource "aws_sqs_queue_policy" "signal_ingestion_send" {
             "Action": [
               "sqs:SendMessage"
             ],
-            "Resource": "${aws_sqs_queue.signal_ingestion.arn}"
+            "Resource": "${aws_sqs_queue.signal_ingestion.arn}",
+            "Condition": {
+              "ArnEquals": {
+                "aws:SourceArn": "${aws_iam_role.lambda_exec.arn}"
+              }
+            }
         }
     ]
   })
