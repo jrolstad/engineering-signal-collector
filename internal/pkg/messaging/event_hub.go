@@ -9,5 +9,5 @@ type EventHub interface {
 }
 
 func NewEventHub(appConfig *config.AppConfig) EventHub {
-	return NewKafkaEventHub(appConfig)
+	return NewSnsEventHub(appConfig)
 }
