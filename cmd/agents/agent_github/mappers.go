@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/hashicorp/go-uuid"
-	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 	models_github "github.com/jrolstad/engineering-signal-collector/internal/pkg/models/github"
 	"strings"
@@ -33,7 +32,7 @@ func MapToSignalMessage(objectType string, body string) *models.SignalMessage {
 		ReceivedAt: models.GetCurrentTime(),
 		ObjectType: objectType,
 		ObjectId:   objectId,
-		Data:       core.EncodeString(body),
+		Data:       body,
 	}
 	return message
 }

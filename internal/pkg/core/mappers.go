@@ -3,14 +3,13 @@ package core
 import (
 	"encoding/json"
 	"strconv"
-	"strings"
 )
 
-func EncodeString(toMap string) string {
-	builder := new(strings.Builder)
-	json.NewEncoder(builder).Encode(toMap)
-	result := builder.String()
-
+func UnEscapeString(toMap string) string {
+	result, err := strconv.Unquote(`"` + toMap + `"`)
+	if err != nil {
+		return ""
+	}
 	return result
 }
 

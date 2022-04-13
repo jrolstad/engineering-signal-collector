@@ -16,6 +16,9 @@ func TransformSignal(eventHub messaging.EventHub, event *models.SignalEvent) err
 	}
 
 	standardEvent := MapTransformedToSignalEvent(event, result)
+	if eventHub == nil {
+		return nil
+	}
 	sendError := eventHub.Send(standardEvent, messaging.Topic_engineeringsignal_standardized)
 
 	return sendError

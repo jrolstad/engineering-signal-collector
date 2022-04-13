@@ -19,7 +19,8 @@ func TransformSignal(objectType string, objectSource string, data string) interf
 func MapPeerReview(objectSource string, toMap string) models.PeerReview {
 	data := &models_github.PeerReviewEvent{}
 
-	core.MapFromJson(toMap, data)
+	cleanedInput := core.UnEscapeString(toMap)
+	core.MapFromJson(cleanedInput, data)
 
 	result := models.PeerReview{
 		Source:    objectSource,
@@ -27,7 +28,13 @@ func MapPeerReview(objectSource string, toMap string) models.PeerReview {
 		Title:     data.PullRequest.Title,
 		CreatedAt: data.PullRequest.CreatedAt,
 		ClosedAt:  data.PullRequest.ClosedAt,
+		State:     data.PullRequest.State,
 		Approvers: []string{},
+
+		Repository: &models.Repository{
+			Id:   fmt.Sprint(data.Repository.ID),
+			Name: data.Repository.FullName,
+		},
 	}
 
 	return result

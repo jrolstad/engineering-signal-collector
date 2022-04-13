@@ -10,4 +10,11 @@ type PeerReview struct {
 	CreatedAt time.Time
 	ClosedAt  time.Time
 	Approvers []string
+
+	Repository *Repository
+}
+
+type Repository struct {
+	Id   string
+	Name string
 }
