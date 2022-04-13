@@ -20,6 +20,7 @@ resource "aws_apigatewayv2_integration" "agent_github" {
   integration_uri    = aws_lambda_function.agent_github.invoke_arn
   integration_type   = "AWS_PROXY"
   integration_method = "POST"
+  
 }
 
 resource "aws_apigatewayv2_route" "agent_github" {
@@ -27,6 +28,7 @@ resource "aws_apigatewayv2_route" "agent_github" {
 
   route_key = "POST /agent_github"
   target    = "integrations/${aws_apigatewayv2_integration.agent_github.id}"
+  
 }
 
 resource "aws_lambda_permission" "api_gw_agent_github" {
@@ -37,4 +39,9 @@ resource "aws_lambda_permission" "api_gw_agent_github" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.lambda.execution_arn}/*/*"
+}
+
+resource "aws_iam_role_policy_attachment" "agent_github" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = aws_sqs_queue_policy.signal_ingestion_send.id
 }
