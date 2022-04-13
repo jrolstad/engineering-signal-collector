@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/hashicorp/go-uuid"
-	"github.com/jrolstad/engineering-signal-collector/internal/pkg/messaging"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 	"strings"
 )
@@ -23,10 +22,10 @@ func MapGithubEventToType(event string) string {
 	}
 }
 
-func MapToSignalMessage(objectType string, body string) *messaging.SignalMessage {
+func MapToSignalMessage(objectType string, body string) *models.SignalMessage {
 	objectId, _ := uuid.GenerateUUID()
 
-	message := &messaging.SignalMessage{
+	message := &models.SignalMessage{
 		SourceName: "GitHub",
 		Source:     "GitHub",
 		ReceivedAt: models.GetCurrentTime(),

@@ -6,6 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 )
 
 func MapToSqsSendMessage(sqsInstance *sqs.SQS, toMap interface{}, queueName string) (*sqs.SendMessageInput, error) {
@@ -44,12 +45,12 @@ func MapToKafkaMessage(toMap interface{}, topicName string) *sarama.ProducerMess
 	}
 }
 
-func MapToSignalEvent(toMap *SignalMessage) *SignalEvent {
+func MapToSignalEvent(toMap *models.SignalMessage) *models.SignalEvent {
 	if toMap == nil {
 		return nil
 	}
 
-	return &SignalEvent{
+	return &models.SignalEvent{
 		SourceName: toMap.SourceName,
 		Source:     toMap.Source,
 		ReceivedAt: toMap.ReceivedAt,

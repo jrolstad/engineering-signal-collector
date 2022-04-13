@@ -5,7 +5,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
-	"github.com/jrolstad/engineering-signal-collector/internal/pkg/messaging"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 	"io"
 	"strings"
 )
@@ -22,7 +22,7 @@ type S3BlobService struct {
 	uploader *s3manager.Uploader
 }
 
-func (service *S3BlobService) Save(event *messaging.SignalEvent, target string, path string) error {
+func (service *S3BlobService) Save(event *models.SignalEvent, target string, path string) error {
 	key := getBlobKey(event)
 	body := getBody(event)
 
@@ -37,13 +37,13 @@ func (service *S3BlobService) Save(event *messaging.SignalEvent, target string, 
 	return uploadError
 }
 
-func getBlobKey(event *messaging.SignalEvent) string {
+func getBlobKey(event *models.SignalEvent) string {
 	key := fmt.Sprintf("%v_%v_%v", event.Source, event.ObjectType, event.ObjectId)
 
 	return key
 }
 
-func getBody(event *messaging.SignalEvent) io.Reader {
+func getBody(event *models.SignalEvent) io.Reader {
 	eventData := core.MapToJson(event)
 	reader := strings.NewReader(eventData)
 

@@ -1,9 +1,11 @@
 package data
 
-import "github.com/jrolstad/engineering-signal-collector/internal/pkg/messaging"
+import (
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
+)
 
 type BlobService interface {
-	Save(toSend *messaging.SignalEvent, target string, path string) error
+	Save(toSend *models.SignalEvent, target string, path string) error
 }
 
 func NewBlobService() BlobService {

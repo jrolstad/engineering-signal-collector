@@ -2,10 +2,10 @@ package orchestration
 
 import (
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/data"
-	"github.com/jrolstad/engineering-signal-collector/internal/pkg/messaging"
+	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
 )
 
-func SaveSignal(blobService data.BlobService, event *messaging.SignalEvent) error {
+func SaveSignal(blobService data.BlobService, event *models.SignalEvent) error {
 	saveError := blobService.Save(event, data.Blob_engineeringsignal_data, data.Directory_engineeringsignal_raw)
 	return saveError
 }
