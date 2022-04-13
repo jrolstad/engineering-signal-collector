@@ -14,7 +14,8 @@ resource "aws_cloudwatch_log_group" "signal_persistance" {
   retention_in_days = 30
 }
 
-resource "aws_lambda_event_source_mapping" "signal_persistance" {
-  event_source_arn = aws_sns_topic.signal_received.arn
-  function_name    = aws_lambda_function.signal_persistance.arn
+resource "aws_sns_topic_subscription" "signal_persistance" {
+  topic_arn = aws_sns_topic.signal_received.arn
+  protocol  = "lambda"
+  endpoint  = aws_lambda_function.signal_persistance.arn
 }
