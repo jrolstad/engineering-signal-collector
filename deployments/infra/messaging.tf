@@ -24,3 +24,7 @@ resource "aws_sqs_queue_policy" "signal_ingestion_send" {
     ]
   })
 }
+
+resource "aws_sns_topic" "signal_received" {
+  name = "${local.service_name}_signal_received"
+}
