@@ -1,6 +1,7 @@
 package orchestration
 
 import (
+	"fmt"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/core"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/messaging"
 	"github.com/jrolstad/engineering-signal-collector/internal/pkg/models"
@@ -12,12 +13,16 @@ func MeasurePolicyAdherence(eventHub messaging.EventHub, event *models.SignalEve
 
 	policies := policy.GetPolicyDefinitions(event.ObjectType)
 
+	fmt.Printf("%v policies defined for %v\n", len(policies), event.ObjectId)
+
 	for _, policyDefinition := range policies {
+		fmt.Printf("Measuring policy for %v", event.ObjectId)
 		result := policy.MeasurePolicy(event.ObjectType, event.ObjectId, event.Data, policyDefinition)
-		event := MapPolicyResultToEvent(event, result)
+		policyResultEvent := MapPolicyResultToEvent(event, result)
 
 		if eventHub != nil {
-			eventHub.Send(event, messaging.Topic_engineeringsignal_policymeasured)
+			fmt.Printf("Sending result for %v", event.ObjectId)
+			eventHub.Send(policyResultEvent, messaging.Topic_engineeringsignal_policymeasured)
 		}
 	}
 
