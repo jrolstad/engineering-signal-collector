@@ -5,14 +5,6 @@ import (
 	"strconv"
 )
 
-func UnEscapeString(toMap string) string {
-	result, err := strconv.Unquote(`"` + toMap + `"`)
-	if err != nil {
-		return ""
-	}
-	return result
-}
-
 func MapToJson(toMap interface{}) string {
 	result, err := json.Marshal(toMap)
 	if err != nil {
