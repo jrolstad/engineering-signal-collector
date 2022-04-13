@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	appConfig "github.com/jrolstad/engineering-signal-collector/internal/pkg/config"
@@ -35,9 +36,13 @@ func handler(ctx context.Context, snsEvent events.SNSEvent) error {
 }
 
 func ProcessEvent(message events.SNSEventRecord) error {
+	fmt.Println("Event Received")
 	data := MapToSignalEvent(message)
+	fmt.Println("Event Mapped")
 
 	saveError := orchestration.MeasurePolicyAdherence(_eventHub, data)
+
+	fmt.Println("Event Measured")
 
 	return saveError
 }

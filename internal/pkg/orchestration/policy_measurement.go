@@ -11,6 +11,7 @@ import (
 
 func MeasurePolicyAdherence(eventHub messaging.EventHub, event *models.SignalEvent) error {
 
+	fmt.Println("Obtaining Policy definitions")
 	policies := policy.GetPolicyDefinitions(event.ObjectType)
 
 	fmt.Printf("%v policies defined for %v\n", len(policies), event.ObjectId)
