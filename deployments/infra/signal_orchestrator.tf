@@ -3,7 +3,7 @@ resource "aws_lambda_function" "signal_orchestrator" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:signal_orchestrator-9"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:signal_orchestrator-12"
   package_type = "Image"
   
 }
