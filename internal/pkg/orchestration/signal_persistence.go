@@ -14,3 +14,8 @@ func SaveStandardizedModel(blobService data.BlobService, event *models.SignalEve
 	saveError := blobService.Save(event, data.Blob_engineeringsignal_data, data.Directory_engineeringsignal_standardized)
 	return saveError
 }
+
+func SavePolicyResult(blobService data.BlobService, event *models.SignalEvent) error {
+	saveError := blobService.Save(event, data.Blob_engineeringsignal_data, data.Directory_engineeringpolicy_result)
+	return saveError
+}

@@ -4,4 +4,5 @@ const (
 	Blob_engineeringsignal_data              = "engineeringsignalcollectorprddata"
 	Directory_engineeringsignal_raw          = "signal_raw"
 	Directory_engineeringsignal_standardized = "signal_standardized"
+	Directory_engineeringpolicy_result       = "policy_result"
 )
