@@ -3,7 +3,7 @@ resource "aws_lambda_function" "signal_persistance" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:persistance-9"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:signal_persistance-9"
   package_type = "Image"
   
 }
