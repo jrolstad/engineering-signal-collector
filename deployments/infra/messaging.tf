@@ -3,28 +3,14 @@ resource "aws_sqs_queue" "signal_ingestion" {
   fifo_queue            = false
 }
 
-resource "aws_sqs_queue_policy" "signal_ingestion_send" {
-  queue_url = aws_sqs_queue.signal_ingestion.id
-
-  policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-              "sqs:SendMessage"
-            ],
-            "Resource": "${aws_sqs_queue.signal_ingestion.arn}",
-            "Condition": {
-              "ArnEquals": {
-                "aws:SourceArn": "${aws_iam_role.lambda_exec.arn}"
-              }
-            }
-        }
-    ]
-  })
-}
-
 resource "aws_sns_topic" "signal_received" {
   name = "${local.service_name}_signal_received"
+}
+
+resource "aws_sns_topic" "signal_standardized" {
+  name = "${local.service_name}_signal_standardized"
+}
+
+resource "aws_sns_topic" "policy_measured" {
+  name = "${local.service_name}_policy_measured"
 }
