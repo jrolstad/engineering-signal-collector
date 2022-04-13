@@ -8,5 +8,5 @@ type SignalEvent struct {
 	ReceivedAt time.Time
 	ObjectType string
 	ObjectId   string
-	Data       interface{}
+	Data       string
 }
