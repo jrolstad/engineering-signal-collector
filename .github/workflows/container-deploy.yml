@@ -44,5 +44,5 @@ jobs:
           ECR_REPOSITORY: engineering_signal_collector_prd
           IMAGE_TAG: agent_github-${{ github.run_number }}
         run: |
-          docker build -f build/agents/agent_github.dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -f build/agents/agent_github.dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg aws_secret_key=${{ secrets.AWS_ACCESS_KEY_SECRET }} .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
