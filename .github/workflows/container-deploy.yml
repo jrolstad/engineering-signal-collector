@@ -82,3 +82,12 @@ jobs:
         run: |
           docker build -f build/pipeline/standardized_persistance.dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg aws_secret_key=${{ secrets.AWS_ACCESS_KEY_SECRET }} .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Build, tag, and push policy measurement lambda
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: engineering_signal_collector_prd
+          IMAGE_TAG: policy_measurement-${{ github.run_number }}
+        run: |
+          docker build -f build/pipeline/policy_measurement.dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }} --build-arg aws_secret_key=${{ secrets.AWS_ACCESS_KEY_SECRET }} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
