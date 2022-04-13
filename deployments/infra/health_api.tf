@@ -3,7 +3,7 @@ resource "aws_lambda_function" "health" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:health_api-9"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:health_api-14"
   package_type = "Image"
   
 }

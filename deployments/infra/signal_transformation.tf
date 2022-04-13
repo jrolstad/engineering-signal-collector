@@ -3,7 +3,7 @@ resource "aws_lambda_function" "signal_transformation" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:signal_transformation-12"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:signal_transformation-14"
   package_type = "Image"
   
 }
