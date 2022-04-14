@@ -17,7 +17,7 @@ func SaveStandardizedModel(blobService data.BlobService, dataRepository data.Rep
 	saveError := blobService.Save(event, data.Blob_engineeringsignal_data, data.Directory_engineeringsignal_standardized)
 
 	modelData := make(map[string]interface{})
-	core.MapFromJson(event.Data, modelData)
+	core.MapFromJson(event.Data, &modelData)
 
 	dataSaveError := dataRepository.SaveStandardDataModel(event.ObjectId, &modelData)
 
