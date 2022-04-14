@@ -3,7 +3,7 @@ resource "aws_lambda_function" "policy_persistence" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:policy_persistance-20"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:policy_persistance-21"
   package_type = "Image"
   
 }
