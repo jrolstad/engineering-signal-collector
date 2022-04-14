@@ -19,7 +19,7 @@ func SaveStandardizedModel(blobService data.BlobService, dataRepository data.Rep
 	modelData := make(map[string]interface{})
 	core.MapFromJson(event.Data, &modelData)
 
-	dataSaveError := dataRepository.SaveStandardDataModel(event.ObjectId, &modelData)
+	dataSaveError := dataRepository.SaveStandardDataModel(event.ObjectId, event.ObjectType, &modelData)
 
 	if saveError != nil {
 		return saveError

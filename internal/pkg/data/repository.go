@@ -10,7 +10,7 @@ import (
 
 type Repository interface {
 	SavePolicyResult(id string, data *policy.PolicyResult) error
-	SaveStandardDataModel(id string, data *map[string]interface{}) error
+	SaveStandardDataModel(id string, objectType string, data *map[string]interface{}) error
 }
 
 func NewDataRepository() Repository {
@@ -47,11 +47,14 @@ func (repository *DynamoDbRepository) SavePolicyResult(id string, data *policy.P
 	return putError
 }
 
-func (repository *DynamoDbRepository) SaveStandardDataModel(id string, data *map[string]interface{}) error {
+func (repository *DynamoDbRepository) SaveStandardDataModel(id string, objectType string, data *map[string]interface{}) error {
 	attributes, _ := dynamodbattribute.MarshalMap(data)
 
 	idValue, _ := dynamodbattribute.Marshal(id)
 	attributes["id"] = idValue
+
+	objectTypeValue, _ := dynamodbattribute.Marshal(objectType)
+	attributes["object_type"] = objectTypeValue
 
 	input := &dynamodb.PutItemInput{
 		Item:      attributes,
