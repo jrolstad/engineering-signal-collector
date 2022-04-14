@@ -9,11 +9,13 @@ import (
 )
 
 var (
-	_blobService data.BlobService
+	_blobService    data.BlobService
+	_dataRepository data.Repository
 )
 
 func init() {
 	_blobService = data.NewBlobService()
+	_dataRepository = data.NewDataRepository()
 }
 
 func main() {
@@ -35,7 +37,7 @@ func handler(ctx context.Context, snsEvent events.SNSEvent) error {
 func ProcessEvent(message events.SNSEventRecord) error {
 	data := MapToSignalEvent(message)
 
-	saveError := orchestration.SaveStandardizedModel(_blobService, data)
+	saveError := orchestration.SaveStandardizedModel(_blobService, _dataRepository, data)
 
 	return saveError
 }
