@@ -24,6 +24,10 @@ In addition, transformed data is available in DynamoDB tables for a more real-ti
 Below is a systems diagram showing the components and their interactions
 ![system diagram](docs/engineering-signal-collector.png "Title")
 
+## Serverless
+All components and pieces of the system are using serverless components so they can easily scale elastically and the owner is only charged with the amounts used (not idle time).
+To support this, all actions are perforemd via AWS lambdas, and all interactions are performed via platform services such as Amazon S3 and DynamoDB.
+
 ## Going Forward
 To enable further scaling and usage of big data components, the transformer and policy measurer components are open to be swapped out with better tools such as Spark, Airflow, etc.
 In addition to scaling, the policy definitions are meant to be defined using the Open Policy Agent Rego language and held in a separate repository / location so that non-engineers can manage.
