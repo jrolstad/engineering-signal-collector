@@ -15,7 +15,7 @@ func PollForLatestChangeLogs(messageHub messaging.MessageHub) error {
 		return getError
 	}
 
-	message := MapToSignalMessage("changelog", endpoint, result)
+	message := MapToSignalMessage("changelog", "microsoft_vscode-go", result)
 
 	sendError := orchestration.SendSignal(messageHub, message)
 
