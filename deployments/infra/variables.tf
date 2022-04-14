@@ -16,5 +16,5 @@ variable "container_image_id" {
   description = "Container image id to use for lambdas."
 
   type    = string
-  default = "22"
+  default = "23"
 }
