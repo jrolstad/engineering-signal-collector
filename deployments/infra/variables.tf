@@ -11,3 +11,10 @@ variable "environment" {
   type    = string
   default = "prd"
 }
+
+variable "container_image_id" {
+  description = "Container image id to use for lambdas."
+
+  type    = string
+  default = "21"
+}

@@ -3,7 +3,7 @@ resource "aws_lambda_function" "policy_measurement" {
 
   role = aws_iam_role.lambda_exec.arn
 
-  image_uri    = "${aws_ecr_repository.registry.repository_url}:policy_measurement-20"
+  image_uri    = "${aws_ecr_repository.registry.repository_url}:policy_measurement-${var.container_image_id}"
   package_type = "Image"
   
 }
